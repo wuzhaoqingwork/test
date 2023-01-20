@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>condition</title>
+    </head>
+    <body>
+        <p th:if="${user.age} &gt; 18">成年人</p>
+        <p th:unless="${user.age} &lt; 18">未成年人</p>
+        <p th:unless="${user.age} &gt; 18">不显示</p>
+
+        <table>
+            <tr>
+                <div th:each="tableName:${tableName}" th:switch="${tableName}">
+                    <td th:case="name">姓名</td>
+                    <td th:case="age">年龄</td>
+                    <td th:case="sex">性别</td>
+                </div>
+
+            </tr>
+            <tr th:each="userMap:${userEntityMap}">
+                <td th:text="${userMap.value.name}">name</td>
+                <td th:text="${userMap.value.age}">age</td>
+                <td th:text="${userMap.value.sex}==1?男:女"></td>
+            </tr>
+        </table>
+      <div th:with="name='hello'">
+          <p th:text="${name}"></p>
+      </div>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>expression</title>
+    </head>
+    <body>
+        <div id="message" th:text="${message}"></div>
+        <div th:text="#{location.wellCome}"></div>
+        <div th:insert="~{index :: crumbs('调用公共的代码片段parent', '调用公共的代码片段child')}"></div>
+        <div th:insert="index :: crumbs('调用公共的代码片段parent', '调用公共的代码片段child')"></div>
+        <div id="footer" th:fragment="footerFragment"> 公共片段</div>
+        <div>aaa
+            <div th:insert=" :: footerFragment"></div>
+            <span th:insert="~{:: #footer}"></span>
+            <div th:replace="~{ :: footerFragment}"></div>
+        </div>
+        <span th:replace="~{ :: footerFragment}"></span>
+        <div th:text="@{https://www.baidu.com/}"></div>
+        <div th:object="${user}">
+            <p th:text="*{name}"></p>
+            <p th:text="*{age}"></p>
+            <p th:text="*{sex}==1?男:女"></p>
+        </div>
+        <!-- 获取上下文对象 -->
+        <p th:text="${#ctx.getLocale()}"></p>
+        <p th:text="${#ctx.getVariable('message')}"></p>
+        <p th:text="${#ctx.containsVariable('message')}"></p>
+        <!-- 获取上下文变量 -->
+        <p th:text="${#vars.getLocale()}"></p>
+        <p th:text="${#vars.getVariable('message')}"></p>
+        <p th:text="${#vars.containsVariable('message')}"></p>
+        <!-- #dates：java.util.Date的功能方法类
+        #numbers: 格式化数字的功能方法类
+        #strings：字符串对象的功能类，例如contains、startWiths等
+        #objects: 对objects的功能类操作
+        #bools: 对布尔值求值的功能方法
+        #arrays：对数组的功能类方法
+        #lists、#sets和#maps: 对lists之类集合功能类方法  -->
+        <!--目前版本中已经不允许使用#request、#session和#servletContext Caused by:
+java.lang.IllegalArgumentException: The
+‘request’,‘session’,‘servletContext’ and ‘response’ expression utility objects are no longer available by default for template expressions and their use is not recommended.
+In cases where they are really needed, they should be manually added as context variables
+需要使用使用${xxx}获取变量值，使用 ${对象变量名.属性名}获取JavaBean属性值-->
+
+        <p th:text="${#dates.createNow}"></p>
+        <p th:text="${#dates.format(#dates.createNow, 'yyyy-MM-dd HH:mm:ss')}"></p>
+
+        <!-- 算术运算 支持+（加）、-（减）、*（乘）、/（除）、%（模） -->
+        <p th:text="4 + 2"></p>
+        <!-- 布尔运算 支持and（且）、or（或）、!（非）、not（非） -->
+        <p th:text="${user.name !=null and user.age!=null}"></p>
+<!--        <p th:text="${user.name or user.age}"></p>-->
+<!--        <p th:text="${!user.name}"></p>-->
+<!--        <p th:text="${not user.name}"></p>-->
+        <!-- 三元运算符 (if) ? (then) : (else) -->
+        <p th:text="*{user.sex}==1?男:女"></p>
+
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>entity</title>
+  </head>
+  <body>
+    <div th:object="${user1}">
+      <p th:text="*{name}">获取 </p>
+      <p th:text="*{age}"> </p>
+      <p th:text="*{sex}==1?男:女"> </p>
+    </div>
+    <table >
+      <tr th:each="userList:${userEntityList}">
+        <td th:text="${userList.name}">name</td>
+        <td th:text="${userList.age}">age</td>
+        <td th:text="${userList.sex}==1?男:女"></td>
+      </tr>
+    </table>
+    <div>
+      <select name="myCity">
+        <option th:each="user : ${userEntityList}" th:text="${user.name}" th:item-index="${userStat.count}"></option>
+      </select>
+    </div>
+    <table >
+      <tr th:each="userMap:${userEntityMap}">
+        <td th:text="${userMap.value.name}">name</td>
+        <td th:text="${userMap.value.age}">age</td>
+        <td th:text="${userMap.value.sex}==1?男:女"></td>
+      </tr>
+    </table>
+  </body>
+</html>

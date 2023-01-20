@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+hello 第一个Thymeleaf程序
+<div th:text="${name}">name是bigsai(我是离线数据)</div>
+<div data-th-text="${name}">name是bigsai(我是离线数据)</div>
+<div th:href="@{https://www.baidu.com/}">eee</div>
+<div th:text="@{https://www.baidu.com/}">eee</div>
+<div th:fragment="crumbs(parent, child)">
+    <i th:text="${parent}"></i>
+    <i th:text="${child}"></i>
+</div>
+<!--<div th:text="#{location.wellCome}"></div>-->
+<div th:object="${user}">
+    <p th:text="*{name}">获取 </p>
+    <p th:text="*{age}"> </p>
+    <p th:text="*{sex}==1?男:女"> </p>
+</div>
+</body>
+</html>
